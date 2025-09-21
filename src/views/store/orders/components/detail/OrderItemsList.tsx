@@ -52,11 +52,10 @@ const OrderItemsList = ({items, refresh}: any) => {
         productId: selectedProduct.id,
         sku: selectedProduct.sku,
         description: selectedProduct.name,
-        finalPrice: Number(selectedProduct.price),
+        finalPrice: Number(selectedProduct.priceFinal),
         quantity: Number(data.quantity),
-        total: Number(selectedProduct.price) * Number(data.quantity)
+        total: Number(selectedProduct.priceFinal) * Number(data.quantity)
       };
-      console.log('Payload a enviar:', payload);
       const result = await apiConnector.post('/orders/items', payload);
       refresh(result.data);
       reset();

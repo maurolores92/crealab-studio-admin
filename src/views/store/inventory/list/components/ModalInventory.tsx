@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import FormDialog from "src/components/dialogs/FormDialog";
 import CustomTextField from 'src/@core/components/mui/text-field'
 import errorMessage from "src/components/forms/ErrorMessage";
+import MenuItem from '@mui/material/MenuItem';
 import apiConnector from "src/services/api.service";
 
 const ModalInventory = ({ open, onClose, refresh, inventory, setSelected }: any) => {
@@ -67,22 +68,34 @@ const ModalInventory = ({ open, onClose, refresh, inventory, setSelected }: any)
         </Grid>
         <Grid item lg={6} xs={12}>
           <CustomTextField
-            label={'Tipo de material'}
+            label={'Categoria'}
             fullWidth
+            select
             {...register('type')}
             error={Boolean(errors.type)}
             {...(errors.type && errorMessage(errors?.type.message))}
-          />
+          >
+            <MenuItem value="Filamentos">Filamentos</MenuItem>
+            <MenuItem value="Repuestos">Repuestos</MenuItem>
+            <MenuItem value="Insumos">Insumos</MenuItem>
+            <MenuItem value="Pegamento">Pegamento</MenuItem>
+            <MenuItem value="Otros">Otros</MenuItem>
+          </CustomTextField>
         </Grid>
 
         <Grid item lg={3} xs={12}>
           <CustomTextField
             label={'Unidad de medida'}
             fullWidth
+            select
             {...register('unit')}
             error={Boolean(errors.unit)}
             {...(errors.unit && errorMessage(errors?.unit.message))}
-          />
+          >
+            <MenuItem value="Gramos">Gramos</MenuItem>
+            <MenuItem value="Kilos">Kilos</MenuItem>
+            <MenuItem value="Unidad">Unidad</MenuItem>
+          </CustomTextField>
         </Grid>
         <Grid item lg={8} xs={12}>
           <CustomTextField

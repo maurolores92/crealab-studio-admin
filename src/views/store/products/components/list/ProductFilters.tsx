@@ -8,8 +8,9 @@ import SelectCategory from "src/views/store/categories/components/SelectCategory
 import * as yup from 'yup';
 
 export const productSchema = yup.object().shape({
-  sku: yup.string().nullable(),
+  name: yup.string().nullable(),
   categoryId: yup.number(),
+  sku: yup.string().nullable(),
 })
 
 
@@ -22,6 +23,7 @@ const ProductFilters = ({apply}: any) => {
   } = useForm({
     resolver: yupResolver(productSchema),
     defaultValues: {
+      name: null,
       sku: null,
       categoryId: 0,
     }
@@ -38,6 +40,15 @@ const ProductFilters = ({apply}: any) => {
         <Box sx={{display: {lg: 'flex', xs: 'block'}}}>
           <FilterInput
             size={'small'}
+            label='Nombre'
+            {...register('name')}
+            variant='outlined'
+            fullWidth={isMobile}
+            sx={{ ...margin , minWidth: 200}}
+            inputProps={{ style: {paddingBottom: 4, paddingTop: 5}}}
+          />
+          <FilterInput
+            size={'small'}
             label='SKU'
             {...register('sku')}
             variant='outlined'
@@ -45,9 +56,9 @@ const ProductFilters = ({apply}: any) => {
             sx={{ ...margin , minWidth: 200}}
             inputProps={{ style: {paddingBottom: 4, paddingTop: 5}}}
           />
-          <SelectCategory 
-            sx={{...margin, minWidth: 200}} 
-            {...({control, setValue, errors})} 
+          <SelectCategory
+            sx={{...margin, minWidth: 200}}
+            {...({control, setValue, errors})}
             filter
           />
         </Box>

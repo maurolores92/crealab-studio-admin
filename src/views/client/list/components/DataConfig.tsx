@@ -37,12 +37,12 @@ export const columns = (actions: any,): GridColDef[] => {
 
 export const schema = yup.object().shape({
   name: yup.string().required('El nombre es requerido'),
-  lastName: yup.string().nullable(),
+  lastName: yup.string().required('El apellido es requerido'),
   document: yup.string().nullable().matches(/[0-9]/, 'Debe ser sólo números'),
-  email: yup.string().required('El email es requerido').email('Debe ser un email'),
+  email: yup.string().nullable().email('Debe ser un email'),
   phone: yup.string().nullable().matches(/[0-9]/, 'Debe ser sólo números'),
   address: yup.object().shape({
-    provinceId: yup.number().required(),
+    provinceId: yup.number().nullable(),
     city: yup.string().nullable(),
     address: yup.string().nullable(),
     postalCode: yup.string().nullable(),

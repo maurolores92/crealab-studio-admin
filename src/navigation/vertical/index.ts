@@ -1,7 +1,12 @@
 // ** Type import
 import { VerticalNavItemsType } from 'src/@core/layouts/types'
 
-const navigation = (): VerticalNavItemsType => {
+import { useAuth } from 'src/hooks/useAuth'
+
+const useVerticalNavigation = (): VerticalNavItemsType => {
+  const { user } = useAuth()
+  const isSuperAdmin = user?.role?.slug === 'super-admin'
+
   return [
     {
       icon: 'tabler:users',
@@ -55,15 +60,14 @@ const navigation = (): VerticalNavItemsType => {
         },
       ]
     },
-    {
-      icon: 'tabler:users',
-      title: 'Usuarios',
-      path: '/usuarios'
-    },
-
-
-
+    ...(isSuperAdmin ? [
+      {
+        icon: 'tabler:users',
+        title: 'Usuarios',
+        path: '/usuarios'
+      }
+    ] : []),
   ]
 }
 
-export default navigation
+export default useVerticalNavigation

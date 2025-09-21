@@ -8,25 +8,39 @@ import CardContent from '@mui/material/CardContent'
 // ** Icon Imports
 import { useAuth } from 'src/hooks/useAuth';
 import ItemWithIcon from 'src/components/ItemWithIcon';
+import { useState } from 'react';
+import Button from '@mui/material/Button';
+import ModalUsers from 'src/views/users/list/components/ModalUsers';
 
 
 
 const AboutOverivew = () => {
   const { user } = useAuth();
   const companyMain = user?.companies?.find((company: any) => company.isMain);
+  const [openModal, setOpenModal] = useState(false);
 
   return user ?
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <Card>
           <CardContent>
-            <Box sx={{ mb: 6 }}>
+            <Box sx={{ mb: 6, position: 'relative' }}>
               <Typography variant='body2' sx={{ mb: 4, color: 'text.disabled', textTransform: 'uppercase' }}>Mis datos</Typography>
               <ItemWithIcon property='Nombre' label={`${user.name} ${user.lastName}`} icon={'fluent:rename-16-regular'}/>
               <ItemWithIcon property='Usuario' label={user.username} icon={'tabler:user'}/>
               <ItemWithIcon property='Email'  label={user.email} icon={'majesticons:mail-line'}/>
               { user.phone ? <ItemWithIcon property='Telefono' label={user.phone} icon={'tabler:phone-call'}/>: null}
-
+              <Box sx={{ position: 'absolute', top: 0, right: 0 }}>
+                <Button variant='contained' color='primary' size='small' onClick={() => setOpenModal(true)}>
+                  Editar datos
+                </Button>
+              </Box>
+              <ModalUsers
+                open={openModal}
+                onClose={() => setOpenModal(false)}
+                user={user}
+                roles={[user.role]}
+              />
             </Box>
             {
               companyMain ?

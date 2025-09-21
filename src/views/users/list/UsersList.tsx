@@ -10,6 +10,7 @@ import ModalUsers from "./components/ModalUsers";
 import { columns } from "./components/DataConfig";
 import useUsers from "./hooks/useUsers";
 import useRoles from "./hooks/useRoles";
+import ModalChangePassword from "./components/ModalChangePassword";
 
 const UsersList = () => {
   const theme = useTheme();
@@ -26,6 +27,7 @@ const UsersList = () => {
 
   const actions = (row: any) => (
     <>
+      <ModalChangePassword userId={row.id} />
       <Tooltip title='Ver usuario' arrow placement='top'>
         <IconButton LinkComponent={Link} href={`/usuarios/detalle/${row.id}`}>
           <Icon icon='tabler:eye' />

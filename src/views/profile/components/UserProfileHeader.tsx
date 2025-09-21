@@ -1,14 +1,11 @@
 import { Card, CardHeader, CardContent, Typography, Box} from '@mui/material'
 import CustomChip from 'src/@core/components/mui/chip'
-
-// ** Icon Imports
 import Icon from 'src/@core/components/icon'
 import { useAuth } from 'src/hooks/useAuth'
 import { DateTime } from 'luxon'
 import UseBgColor from 'src/@core/hooks/useBgColor'
 import ProfilePicture from 'src/components/images/ProfilePicture'
-
-
+import ModalChangePassword from './ModalChangePassword'
 
 const UserProfileHeader = () => {
   const { user } = useAuth();
@@ -18,7 +15,6 @@ const UserProfileHeader = () => {
     return DateTime.fromISO(date, {locale: 'es-US'}).toFormat('MMMM yyyy');
   }
 
-  // const designationIcon = user?.icon || 'tabler:briefcase'
 
   return user !== null ? (
     <Card>
@@ -46,7 +42,8 @@ const UserProfileHeader = () => {
             ml: { xs: 0, md: 6 },
             alignItems: 'flex-end',
             flexWrap: ['wrap', 'nowrap'],
-            justifyContent: ['center', 'space-between']
+            justifyContent: ['center', 'space-between'],
+            position: 'relative'
           }}
         >
           <Box sx={{ mb: [6, 0], display: 'flex', flexDirection: 'column', alignItems: ['center', 'flex-start'] }}>
@@ -63,15 +60,14 @@ const UserProfileHeader = () => {
               <Box sx={{ mr: 4, display: 'flex', alignItems: 'center', '& svg': { mr: 1.5, color: 'text.secondary' } }}>
                 <CustomChip rounded label={user.role.name} skin='light' color='primary' sx={{fontWeight: 600}} />
               </Box>
-              {/* <Box sx={{ mr: 4, display: 'flex', alignItems: 'center', '& svg': { mr: 1.5, color: 'text.secondary' } }}>
-                <Icon fontSize='1.25rem' icon='tabler:map-pin' />
-                <Typography sx={{ color: 'text.secondary' }}>{user.location}</Typography>
-              </Box> */}
               <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 1.5, color: 'text.secondary' } }}>
                 <Icon fontSize='1.25rem' icon='tabler:calendar' />
                 <Typography sx={{ color: 'text.secondary' }}>Desde {getJoinDate(user.createdAt)}</Typography>
               </Box>
             </Box>
+          </Box>
+          <Box sx={{ position: 'absolute', right: 0, bottom: 0 }}>
+            <ModalChangePassword />
           </Box>
         </Box>
       </CardContent>

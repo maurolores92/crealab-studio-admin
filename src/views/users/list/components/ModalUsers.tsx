@@ -10,16 +10,17 @@ import { defaultValues, schema } from "./DataConfig";
 
 const ModalUsers = ({ open, onClose, refresh, user, setSelected, roles }: any) => {
 
-  const {
-    register,
-    reset,
-    handleSubmit,
-    formState: { errors,  },
-  } = useForm({
+const {
+  register,
+  reset,
+  handleSubmit,
+  formState: { errors },
+} = useForm({
   defaultValues: user || defaultValues,
-    mode: 'onBlur',
-    resolver: yupResolver(schema)
-  });
+  mode: 'onBlur',
+  resolver: yupResolver(schema),
+  context: { isEdit: !!user }
+});
 
 
   const onSubmit = async(data: any) => {

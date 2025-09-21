@@ -58,6 +58,5 @@ export const schema = yup.object().shape({
   ),
   email: yup.string().email('Email inválido').required('Email requerido'),
   phone: yup.string(),
-  photo: yup.string(),
   roleId: yup.string().required('Rol requerido'),
 });

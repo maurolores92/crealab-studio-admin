@@ -1,0 +1,19 @@
+
+services:
+  crealabadmin:
+    image: crealabadmin-front
+    container_name: crealabadmin
+    build: ./
+    restart: always
+    env_file: ./.env
+    ports:
+      - 5001:3000
+    stdin_open: true
+    tty: true
+    networks:
+      - crealab
+
+#Docker Networks
+networks:
+  crealab:
+    external: true

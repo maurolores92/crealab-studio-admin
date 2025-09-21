@@ -5,7 +5,7 @@ WORKDIR /home/node/app
 COPY package.json ./
 USER node
 
-RUN npm i
+RUN npm i --legacy-peer-deps
 COPY --chown=node:node . .
 
 RUN npm run build

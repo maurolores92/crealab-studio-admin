@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // import { api } from '../environments';
-let host = 'https://api.crealab.ar/api'; //prod
+let host = 'https://api.crealabstudio.com.ar/api'; //prod
 if(process.env.NODE_ENV && process.env.NODE_ENV === 'development') {
   host = 'http://localhost:5002/api'
 }

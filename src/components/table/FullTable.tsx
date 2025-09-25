@@ -8,7 +8,7 @@ const FullTable = ({
   setRowSelected,
   setPagination,
   checkboxSelection = true,
-  py = 2,
+  py = 0.5,
 }: any) => {
 
   return  <DataGrid

@@ -1,5 +1,5 @@
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import { actionsColumn, TitleAndSubtitle, dateColumn, EmailAndPhoneColumn } from 'src/components/table/Columns';
+import { actionsColumn, TitleAndSubtitle, dateColumn, EmailAndPhoneColumn, TitleColumn } from 'src/components/table/Columns';
 import * as yup from 'yup';
 
 export const columns = (actions: any,): GridColDef[] => {
@@ -15,10 +15,14 @@ export const columns = (actions: any,): GridColDef[] => {
       minWidth: 300,
       field: 'name',
       headerName: 'Nombre',
-      renderCell: (params: GridRenderCellParams) => TitleAndSubtitle(
-        `${params.row.name} ${params.row.lastName}`,
-         `${params.row.documentType}: ${params.row.document}`
-      )
+      renderCell: (params: GridRenderCellParams) => TitleColumn(`${params.row.name} ${params.row.lastName}`,)
+    },
+    {
+      flex: 0.3,
+      minWidth: 200,
+      field: 'document',
+      headerName: 'Documento',
+      renderCell: (params: GridRenderCellParams) => TitleColumn(`${params.row.documentType}: ${params.row.document}` || '-')
     },
     {
       flex: 0.3,
@@ -28,6 +32,12 @@ export const columns = (actions: any,): GridColDef[] => {
       align: 'left',
       headerAlign: 'left',
       renderCell: (params: GridRenderCellParams) => EmailAndPhoneColumn(params)
+    },
+    {
+      flex: 0.25,
+      minWidth: 250,
+      field: 'notes',
+      headerName: 'Notas',
     },
 
     dateColumn('createdAt'),

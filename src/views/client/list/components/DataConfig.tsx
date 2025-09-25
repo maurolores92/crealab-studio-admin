@@ -1,5 +1,5 @@
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import { actionsColumn, TitleAndSubtitle, dateColumn, EmailAndPhoneColumn, TitleColumn } from 'src/components/table/Columns';
+import { actionsColumn, dateColumn, EmailAndPhoneColumn, TitleColumn } from 'src/components/table/Columns';
 import * as yup from 'yup';
 
 export const columns = (actions: any,): GridColDef[] => {

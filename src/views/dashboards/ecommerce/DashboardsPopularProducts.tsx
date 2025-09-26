@@ -97,7 +97,7 @@ const DashboardsPopularProducts = () => {
                     <img
                       width={46}
                       height={46}
-                      src={`${constants.imageUrl}/${product.image}`}
+                      src={`${constants.imageUrl}${product.image}`}
                       alt={product.name}
                       style={{ borderRadius: 4, objectFit: 'cover' }}
                     />

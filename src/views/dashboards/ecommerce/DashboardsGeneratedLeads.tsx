@@ -18,7 +18,7 @@ const defaultPayload = {
   percentChange: 15.8
 }
 
-const EcommerceGeneratedLeads = () => {
+const DashboardsGeneratedLeads = () => {
   const theme = useTheme()
   const [payload, setPayload] = useState(defaultPayload)
 
@@ -143,4 +143,4 @@ const EcommerceGeneratedLeads = () => {
   )
 }
 
-export default EcommerceGeneratedLeads
+export default DashboardsGeneratedLeads

@@ -13,8 +13,8 @@ import apiConnector from 'src/services/api.service'
 import { Box,  Menu, MenuItem } from '@mui/material'
 
 const initialBarSeries = [
-  { name: 'Earning', data: [] as number[] },
-  { name: 'Expense', data: [] as number[] }
+  { name: 'Vendido', data: [] as number[] },
+  { name: 'Gastado', data: [] as number[] }
 ]
 
 const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({

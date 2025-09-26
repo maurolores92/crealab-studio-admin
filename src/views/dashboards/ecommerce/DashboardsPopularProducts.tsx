@@ -7,6 +7,7 @@ import CardContent from '@mui/material/CardContent'
 import { useEffect, useState, useCallback } from 'react'
 import OptionsMenu from 'src/@core/components/option-menu'
 import apiConnector from 'src/services/api.service'
+import { constants } from 'src/configs/constants'
 
 interface PopularProduct {
   id: number
@@ -96,7 +97,7 @@ const DashboardsPopularProducts = () => {
                     <img
                       width={46}
                       height={46}
-                      src={product.image}
+                      src={`${constants.imageUrl}/${product.image}`}
                       alt={product.name}
                       style={{ borderRadius: 4, objectFit: 'cover' }}
                     />

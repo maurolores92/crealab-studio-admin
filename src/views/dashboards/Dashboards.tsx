@@ -8,6 +8,7 @@ import DashboardsWelcomeCard from 'src/views/dashboards/ecommerce/DashboardsWelc
 import DashboardsEarningReports from './ecommerce/DashboardsEarningReports'
 import DashboardsGeneratedLeads from 'src/views/dashboards/ecommerce/DashboardsGeneratedLeads'
 import DashboardsPopularProducts from './ecommerce/DashboardsPopularProducts'
+import DashboardsOrders from './ecommerce/DashboardsOrders'
 
 const Dashboard = () => {
   return (
@@ -41,15 +42,9 @@ const Dashboard = () => {
         <Grid item xs={12} md={6} lg={4}>
           <DashboardsPopularProducts />
         </Grid>
-        {/*<Grid item xs={12} md={6} lg={4}>
-          <EcommerceOrders />
-        </Grid>
         <Grid item xs={12} md={6} lg={4}>
-          <EcommerceTransactions />
+          <DashboardsOrders />
         </Grid>
-        <Grid item xs={12} lg={8}>
-          <EcommerceInvoiceTable />
-        </Grid> */}
       </Grid>
     </ApexChartWrapper>
   )

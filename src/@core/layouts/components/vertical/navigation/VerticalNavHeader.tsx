@@ -1,20 +1,10 @@
-// ** Next Import
 import Link from 'next/link'
-
-// ** MUI Imports
 import IconButton from '@mui/material/IconButton'
 import Box, { BoxProps } from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
 import Typography, { TypographyProps } from '@mui/material/Typography'
-
-// ** Type Import
 import { LayoutProps } from 'src/@core/layouts/types'
-
-// ** Custom Icon Import
 import Icon from 'src/@core/components/icon'
-
-// ** Configs
-import themeConfig from 'src/configs/themeConfig'
 
 interface Props {
   navHover: boolean
@@ -93,9 +83,23 @@ const VerticalNavHeader = (props: Props) => {
         userNavMenuBranding(props)
       ) : (
         <LinkStyled href='/'>
-          {/* Aqui iria el logo */}
-          <HeaderTitle variant='h4' sx={{ ...menuCollapsedStyles, ...(navCollapsed && !navHover ? {} : { ml: 2.5 }) }}>
-            {themeConfig.templateName}
+          <img
+            src='/images/crealab-studio-logo.png'
+            alt='Crealab Studio'
+            style={{
+              height: navCollapsed && !navHover ? 32 : 40,
+              width: 'auto',
+              transition: 'height .25s ease-in-out'
+            }}
+          />
+          <HeaderTitle
+            variant='h6'
+            sx={{
+              ...menuCollapsedStyles,
+              ...(navCollapsed && !navHover ? { display: 'none' } : { ml: 2.5, display: 'block' })
+            }}
+          >
+            Crealab Studio
           </HeaderTitle>
         </LinkStyled>
       )}

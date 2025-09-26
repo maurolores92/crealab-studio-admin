@@ -4,6 +4,7 @@ import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
+import Avatar from '@mui/material/Avatar'
 import { useEffect, useState, useCallback } from 'react'
 import OptionsMenu from 'src/@core/components/option-menu'
 import apiConnector from 'src/services/api.service'
@@ -93,19 +94,18 @@ const DashboardsPopularProducts = () => {
                     borderRadius: 1
                   }}
                 >
-                  {product.image ? (
-                    <img
-                      width={46}
-                      height={46}
-                      src={`${constants.imageUrl}${product.image}`}
-                      alt={product.name}
-                      style={{ borderRadius: 4, objectFit: 'cover' }}
-                    />
-                  ) : (
-                    <Typography variant='h6' sx={{ color: 'text.disabled' }}>
-                      {product.name.charAt(0)}
-                    </Typography>
-                  )}
+                  <Avatar
+                    sx={{
+                      width: 46,
+                      height: 46,
+                      fontSize: '1.125rem',
+                      fontWeight: 600
+                    }}
+                    src={product.image ? `${constants.imageUrl}${product.image}` : undefined}
+                    alt={product.name}
+                  >
+                    {product.name.charAt(0).toUpperCase()}
+                  </Avatar>
                 </Box>
 
                 <Box

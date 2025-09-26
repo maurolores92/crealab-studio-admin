@@ -85,8 +85,8 @@ const DashboardsRevenueReport = () => {
       const data = response
       setCategories(data.map((item: any) => getMonthShort(item.month)))
       setBarSeries([
-        { name: 'Earning', data: data.map((item: any) => item.sales) },
-        { name: 'Expense', data: data.map((item: any) => -item.expenses) }
+        { name: 'Ventas', data: data.map((item: any) => item.sales) },
+        { name: 'Gastos', data: data.map((item: any) => -item.expenses) }
       ])
       const totalSales = data.reduce((acc: number, item: any) => acc + (item.sales || 0), 0)
       const totalExpenses = data.reduce((acc: number, item: any) => acc + (item.expenses || 0), 0)

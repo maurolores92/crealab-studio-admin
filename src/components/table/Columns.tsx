@@ -94,7 +94,7 @@ return (
 
 
 export const dateColumn = (field = 'createdAt', minWidth= 100) => ({
-  flex: 0.170,
+  flex: 0.2,
   minWidth,
   headerName: 'Creado',
   field,

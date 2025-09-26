@@ -38,8 +38,8 @@ const OrdersList = () => {
       <IconButton onClick={() => {
         setSelected(row);
         setOpenDelete(true);
-      }} disabled={row.status.slug !== 'draft'}>
-        <Icon icon='tabler:trash' color={row.status.slug !== 'draft' ? theme.palette.grey[400]: theme.palette.error.main}/>
+      }} disabled={row.status.slug !== 'pending'}>
+        <Icon icon='tabler:trash' color={row.status.slug !== 'pending' ? theme.palette.grey[400]: theme.palette.error.main}/>
       </IconButton>
     </Tooltip>
   </>

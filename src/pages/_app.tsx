@@ -122,13 +122,42 @@ const App = (props: ExtendedAppProps) => {
     <Provider store={store}>
       <CacheProvider value={emotionCache}>
         <Head>
-          <title>{`${themeConfig.templateName}`}</title>
+          <title>Crealab Studio - Panel Administrativo | Gestión de Impresión 3D</title>
           <meta
             name='description'
-            content={`${themeConfig.templateName} – Material Design React Admin Dashboard Template – is the most developer friendly & highly customizable Admin Dashboard Template based on MUI v5.`}
+            content='Panel administrativo de Crealab - Gestiona tu emprendimiento de impresión 3D: clientes, órdenes, inventario, ventas, costos por peso y tiempo de impresión. Llaveros, juguetes y muñecos personalizados.'
           />
-          <meta name='keywords' content='Material Design, MUI, Admin Template, React Admin Template' />
+          <meta name='keywords' content='impresión 3D, panel administrativo, gestión de ventas, inventario 3D, llaveros personalizados, juguetes 3D, muñecos impresos, costos impresión, Crealab' />
+          <meta name='author' content='Crealab Studio' />
+          <meta name='robots' content='noindex, nofollow' />
           <meta name='viewport' content='initial-scale=1, width=device-width' />
+
+          {/* Favicons */}
+          <link rel='icon' href='/favicon.ico' />
+          <link rel='icon' type='image/png' sizes='32x32' href='/images/favicon.png' />
+          <link rel='apple-touch-icon' href='/images/apple-touch-icon.png' />
+
+          {/* Open Graph / Facebook */}
+          <meta property='og:type' content='website' />
+          <meta property='og:title' content='Crealab Studio - Panel Administrativo' />
+          <meta property='og:description' content='Sistema de gestión para emprendimiento de impresión 3D. Control total de clientes, órdenes, inventario y costos.' />
+          <meta property='og:image' content='/images/crealab-studio-logo.png' />
+          <meta property='og:site_name' content='Crealab Studio' />
+
+          {/* Twitter */}
+          <meta name='twitter:card' content='summary_large_image' />
+          <meta name='twitter:title' content='Crealab Studio - Panel Administrativo' />
+          <meta name='twitter:description' content='Sistema de gestión para emprendimiento de impresión 3D' />
+          <meta name='twitter:image' content='/images/crealab-studio-logo.png' />
+
+          {/* Additional Security & Performance */}
+          <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
+          <meta name='theme-color' content='#7367F0' />
+          <meta name='application-name' content='Crealab Studio' />
+
+          {/* Preconnect to improve performance */}
+          <link rel='preconnect' href='https://fonts.googleapis.com' />
+          <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='anonymous' />
         </Head>
 
         <AuthProvider>

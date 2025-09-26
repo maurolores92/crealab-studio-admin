@@ -22,7 +22,14 @@ export const columns = (actions: any,): GridColDef[] => {
       minWidth: 200,
       field: 'document',
       headerName: 'Documento',
-      renderCell: (params: GridRenderCellParams) => TitleColumn(`${params.row.documentType}: ${params.row.document}` || '-')
+      renderCell: (params: GridRenderCellParams) => {
+        const document = params.row.document;
+        if (!document || document.trim() === '') {
+          return TitleColumn('-');
+        }
+
+        return TitleColumn(`${params.row.documentType}: ${document}`);
+      }
     },
     {
       flex: 0.3,

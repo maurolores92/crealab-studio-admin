@@ -1,5 +1,5 @@
 
-let host = 'https://api.crealabstudio.com.ar/'; //prod
+let host = 'https://api.crealabstudio.com.ar'; //prod
 if(process.env.NODE_ENV && process.env.NODE_ENV === 'development') {
   host = 'http://localhost:5002/'
 }

@@ -59,12 +59,16 @@ const CategoriesList = () => {
     }
   }
 
-    const handleSync = async () => {
+  const [syncLoading, setSyncLoading] = useState(false);
+  const handleSync = async () => {
+    setSyncLoading(true);
     try {
       await apiConnector.post('/woocomerce/sync-categories', {});
       toast.success('Sincronización exitosa con WooCommerce');
     } catch (error) {
       toast.error('Error al sincronizar con WooCommerce');
+    } finally {
+      setSyncLoading(false);
     }
   };
 
@@ -84,7 +88,10 @@ const CategoriesList = () => {
               startIcon={<Icon icon='tabler:refresh' />}
               onClick={handleSync}
               sx={{ mr: 2 }}
-            >Sincronizar</Button>
+              disabled={syncLoading}
+            >
+              {syncLoading ? 'Sincronizando...' : 'Sincronizar'}
+            </Button>
             <Button
               variant="contained"
               startIcon={<Icon icon='tabler:plus' />}

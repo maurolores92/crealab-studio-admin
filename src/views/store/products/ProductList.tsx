@@ -66,18 +66,34 @@ const ProductList = () => {
     }
   }
 
+  const handleSync = async () => {
+    try {
+      await apiConnector.post('/woocomerce/sync-products', {});
+      toast.success('Sincronización exitosa con WooCommerce');
+    } catch (error) {
+      toast.error('Error al sincronizar con WooCommerce');
+    }
+  };
+
   return <>
     <Grid container spacing={2}>
       <Grid item lg={12} xs={12}>
         <Card>
           <CardHeader title='Productos' action={<>
-
+            <Button
+              variant="outlined"
+              color="primary"
+              startIcon={<Icon icon='tabler:refresh' />}
+              onClick={handleSync}
+              sx={{ mr: 2 }}
+            >Sincronizar</Button>
             <Button
               variant="contained"
               startIcon={<Icon icon='tabler:plus' />}
               LinkComponent={Link}
               href="/productos/nuevo/"
             >Nuevo</Button>
+
           </>} />
           <ProductFilters apply={get}/>
           <FullTable

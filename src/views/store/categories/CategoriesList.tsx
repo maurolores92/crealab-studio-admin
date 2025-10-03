@@ -21,12 +21,12 @@ const CategoriesList = () => {
 
   const get = useCallback(async() => {
     const result: any = await apiConnector.get('/products/categories', paginationModel);
-   
+
     setCategories(result);
   }, [setCategories, paginationModel]);
 
   useEffect(() => { get(); }, [get]);
-  
+
   const actions = (row: any) => (
     <>
       <Tooltip title='Editar' arrow placement='top'>
@@ -59,6 +59,16 @@ const CategoriesList = () => {
     }
   }
 
+    const handleSync = async () => {
+    try {
+      await apiConnector.post('/woocomerce/sync-categories', {});
+      toast.success('Sincronización exitosa con WooCommerce');
+    } catch (error) {
+      toast.error('Error al sincronizar con WooCommerce');
+    }
+  };
+
+
 
   return <>
     <Box>
@@ -68,9 +78,16 @@ const CategoriesList = () => {
       <Grid item lg={12} xs={12}>
         <Card>
           <CardHeader title='Categorias' action={<>
-            <Button 
-              variant="contained" 
-              startIcon={<Icon icon='tabler:plus' />} 
+            <Button
+              variant="outlined"
+              color="primary"
+              startIcon={<Icon icon='tabler:refresh' />}
+              onClick={handleSync}
+              sx={{ mr: 2 }}
+            >Sincronizar</Button>
+            <Button
+              variant="contained"
+              startIcon={<Icon icon='tabler:plus' />}
               onClick={() => setOpenCreate(true)}
             >Nueva</Button>
           </>} />
@@ -84,17 +101,17 @@ const CategoriesList = () => {
       </Grid>
     </Grid>
     {
-      openCreate && <ModalCategory 
-      open={openCreate} 
-      onClose={() => setOpenCreate(false)} 
+      openCreate && <ModalCategory
+      open={openCreate}
+      onClose={() => setOpenCreate(false)}
       refresh={get}
       category={selected}
       />
     }
     {
-      openDelete && <ConfirmDeleteDialog 
-      open={openDelete} 
-      onClose={() => setOpenDelete(false)} 
+      openDelete && <ConfirmDeleteDialog
+      open={openDelete}
+      onClose={() => setOpenDelete(false)}
       title={`Eliminar la categoría ${selected.name}`}
       titleAction="Eliminar categoría"
       action={onDelete}

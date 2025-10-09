@@ -16,7 +16,7 @@ const SelectProduct = ({errors, setValue, productId, sx={ mb: 4}, onProductSelec
   const get = useCallback(async() => {
     setLoading(true)
     const result: any = await apiConnector.get('/products', {pageSize: 100, page: 0});
-    setProducts(result.data);
+    setProducts(result.data.data);
 
       if(productId){
         const product = result.countries.find((i: any) => i.id === productId);

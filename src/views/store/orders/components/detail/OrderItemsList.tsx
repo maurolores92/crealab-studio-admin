@@ -23,11 +23,9 @@ const OrderItemsList = ({items, refresh}: any) => {
   const router = useRouter();
   const theme = useTheme();
   const {id} = router.query;
-
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 7 });
   const [openDelete, setOpenDelete] = useState<boolean>(false);
   const [selected, setSelected] = useState<any>();
-
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const {
     register,

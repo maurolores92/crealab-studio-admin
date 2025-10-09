@@ -3,40 +3,14 @@ import CustomTextField from "src/@core/components/mui/text-field";
 import errorMessage from "src/components/forms/ErrorMessage";
 import Editor from "src/components/forms/Editor";
 import { useNewProductContent } from "./NewProductContext";
-import { Card, CardContent, CardHeader, Grid, InputAdornment, MenuItem, Typography, Autocomplete } from "@mui/material";
+import { Card, CardContent, CardHeader, Grid, InputAdornment, MenuItem, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
 import SelectCategory from "src/views/store/categories/components/SelectCategory";
-import { useEffect, useState, useCallback } from "react";
-import apiConnector from "src/services/api.service";
+import { useEffect } from "react";
 
 const BasicDataCard = () => {
   const { register, errors, setValue, product, watch } = useNewProductContent();
-  const categoriesId = product?.categories?.map((c: any) => c.category.id) || [];
-  const [inventoryList, setInventoryList] = useState<any[]>([]);
-  const [selectedInsumos, setSelectedInsumos] = useState<any[]>([]);
-
-  const getInventory = useCallback(() => {
-    apiConnector.get('/inventory/all').then((res: any) => {
-      setInventoryList(res);
-    });
-  }, []);
-
-  useEffect(() => {
-    getInventory();
-  }, [getInventory]);
-
-
-  const handleInsumoChange = (event: any, value: any[]) => {
-    setSelectedInsumos(value);
-    setValue('insumos', value);
-  };
-
-  const handleCantidadChange = (index: number, cantidad: number) => {
-    const updated = [...selectedInsumos];
-    updated[index].cantidad = cantidad;
-    setSelectedInsumos(updated);
-    setValue('insumos', updated);
-  };
+  const categoriesId = product?.categories?.map((c: any) => c.id) || [];
 
   const peso = typeof watch === 'function' ? Number(watch('weight')) || 0 : 0;
   const tiempo = typeof watch === 'function' ? Number(watch('time')) || 0 : 0;
@@ -81,13 +55,17 @@ const BasicDataCard = () => {
           select
           label={'Estatus'}
           fullWidth
-          {...register('statusSlug')}
+          defaultValue={product?.status || 'publish'}
+          {...register('status')}
           error={Boolean(errors.status)}
-          value={product ? product?.status?.slug : 'published'}
           {...(errors.status && errorMessage(errors?.status.message))}
         >
-          <MenuItem value='draft'>Pendiente</MenuItem>
-          <MenuItem value='published'>Publicado</MenuItem>
+          <MenuItem value='publish'>Publicado</MenuItem>
+          <MenuItem value='draft'>Borrador</MenuItem>
+          <MenuItem value='pending'>Pendiente de revisión</MenuItem>
+          <MenuItem value='private'>Privado</MenuItem>
+          <MenuItem value='future'>Programado</MenuItem>
+          <MenuItem value='trash'>En papelera</MenuItem>
         </CustomTextField>
       </Grid>
       <Grid item lg={2} xs={12}>
@@ -163,49 +141,11 @@ const BasicDataCard = () => {
         />
       </Grid>
       <Grid item xs={12} sm={12}>
-        <Typography variant='h6' sx={{mb:2}}>Insumos y consumo</Typography>
-        <Autocomplete
-          multiple
-          options={inventoryList}
-          getOptionLabel={(option) => option.name}
-          value={selectedInsumos}
-          onChange={handleInsumoChange}
-          renderInput={(params) => (
-            <CustomTextField {...params} label='Selecciona insumos/materiales' fullWidth />
-          )}
-        />
-        {selectedInsumos.map((insumo, idx) => (
-          <Grid container spacing={1} key={insumo.id} sx={{mt:1}} alignItems='center'>
-            <Grid item xs={7}>
-              <Typography>{insumo.name} ({insumo.unit})</Typography>
-            </Grid>
-            <Grid item xs={5}>
-              <CustomTextField
-                label='Cantidad a consumir'
-                type='number'
-                inputProps={{min: 0}}
-                value={insumo.cantidad || ''}
-                onChange={e => handleCantidadChange(idx, Number(e.target.value))}
-                fullWidth
-              />
-            </Grid>
-          </Grid>
-        ))}
-      </Grid>
-      <Grid item xs={12} sm={12}>
         <Typography variant='h6' sx={{mb:2}}>Descripción</Typography>
         <Editor
           setValue={setValue}
           defaultValue={product?.description}
           name='description'
-        />
-      </Grid>
-      <Grid item xs={12} sm={12}>
-        <Typography variant='h6' sx={{mb:2}}>Descripción adicional</Typography>
-        <Editor
-          setValue={setValue}
-          defaultValue={product?.aditionalDescription}
-          name='aditionalDescription'
         />
       </Grid>
     </Grid>

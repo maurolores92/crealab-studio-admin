@@ -12,33 +12,34 @@ const AddGalleryModal = ({productId, open, onClose, refresh}: any) => {
 
   const onSubmit = async() => {
     try {
-      const formData = new FormData();
-      formData.append('productId', productId);
       if(files && files.length) {
-        files.forEach((file: any) => formData.append(`gallery`, file));
+        for (const file of files) {
+          const formData = new FormData();
+          formData.append('image', file);
+          await apiConnector.sendFile(`/products/${productId}/gallery-image`, formData);
+        }
       }
-      await apiConnector.sendFile('/products/add-gallery', formData);
       setFiles([]);
-      toast.success('Se han cargado las imagenes correctamente');
+      toast.success('Se han cargado las imágenes correctamente');
       refresh();
       onClose();
     } catch (error) {
-      toast.error('Error al cargar las imagenes.')
+      toast.error('Error al cargar las imágenes.')
     }
   }
 
   return <>
-  <PrimaryDialog 
-    {...{open, onClose}} 
-    title="Agregar imagenes a la galería" 
+  <PrimaryDialog
+    {...{open, onClose}}
+    title="Agregar imagenes a la galería"
     onAction={onSubmit}
     size='sm'
   >
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <AppReactDropzone sx={{mt: 3}}>
-            <FileUploaderMultiple 
-              files={files} 
+            <FileUploaderMultiple
+              files={files}
               setFiles={setFiles}
             />
           </AppReactDropzone>

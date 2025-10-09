@@ -1,8 +1,8 @@
 
+
 import { Alert, Box, Button, Card, CardContent, CardHeader, CardMedia, Typography, useMediaQuery, useTheme } from '@mui/material';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
-import { constants } from 'src/configs/constants';
 import AddGalleryModal from './AddGalleryModal';
 import { useState } from 'react';
 import { Icon } from '@iconify/react';
@@ -10,25 +10,21 @@ import toast from 'react-hot-toast';
 import apiConnector from 'src/services/api.service';
 import ConfirmDeleteDialog from 'src/components/dialogs/ConfirmDeleteDialog';
 
-const toImage = (path: string) => ({
-  original: constants.imageUrl + '/' + path,
-  thumbnail: constants.imageUrl + '/' + path,
-});
+const toImage = (src: string) => ({ original: src, thumbnail: src });
 
 const ProductGallery = ({productId, gallery, refresh}: any) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const images: any[] = [];
+  const images = Array.isArray(gallery)
+    ? gallery.filter((img: any) => !!img.src).map((img: any) => toImage(img.src))
+    : [];
   const [open, setOpen] = useState<boolean>(false);
   const [openDelete, setOpenDelete] = useState<boolean>(false);
   const [selectedImageId, setSelectedImageId] = useState<number | null>(null);
 
-  if(gallery && gallery.length) {
-    gallery.forEach((image: any) => images.push(toImage(image.link)));
-  }
 
   const deleteImageGallery = (item: any) => {
-    const galleryImage = gallery.find((img: any) => constants.imageUrl + '/' + img.link === item.original);
+    const galleryImage = gallery.find((img: any) => img.src === item.original);
 
     return (
       <Box style={{ position: 'relative' }}>

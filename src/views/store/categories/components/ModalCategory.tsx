@@ -40,15 +40,15 @@ const ModalCategory = ({open, onClose, refresh, category}: any) => {
   }
 
   return (
-    <FormDialog 
+    <FormDialog
       title={`${category ? 'Crear' : 'Editar'} catergoría`}
-      onSubmit={handleSubmit(onSubmit)} 
-      open={open} 
-      onClose={onClose} 
+      onSubmit={handleSubmit(onSubmit)}
+      open={open}
+      onClose={onClose}
     >
       <Box sx={{textAlign: 'right', mb: 3}}>
         <Typography color="grey"></Typography>
-      </Box>  
+      </Box>
       <Grid container spacing={2}>
         <Grid item lg={12} xs={12}>
           <CustomTextField
@@ -57,6 +57,26 @@ const ModalCategory = ({open, onClose, refresh, category}: any) => {
             {...register('name')}
             error={Boolean(errors.name)}
             {...(errors.name && errorMessage(errors?.name.message))}
+          />
+        </Grid>
+        <Grid item lg={12} xs={12}>
+          <CustomTextField
+            label={'Slug'}
+            fullWidth
+            {...register('slug')}
+            error={Boolean(errors.slug)}
+            {...(errors.slug && errorMessage(errors?.slug.message))}
+          />
+        </Grid>
+        <Grid item lg={12} xs={12}>
+          <CustomTextField
+            label={'Descripción'}
+            fullWidth
+            multiline
+            minRows={2}
+            {...register('description')}
+            error={Boolean(errors.description)}
+            {...(errors.description && errorMessage(errors?.description.message))}
           />
         </Grid>
       </Grid>

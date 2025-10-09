@@ -15,7 +15,6 @@ const CategoriesList = () => {
   const [openCreate, setOpenCreate] = useState<boolean>(false);
   const [openDelete, setOpenDelete] = useState<boolean>(false);
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 });
-
   const [categories, setCategories] = useState<IDataList>({...defaultDataList});
   const [selected, setSelected] = useState<any>();
 
@@ -36,11 +35,14 @@ const CategoriesList = () => {
         }}><Icon icon='tabler:pencil' /></IconButton>
       </Tooltip>
       <Tooltip title='Eliminar' arrow placeholder="top">
-        <IconButton onClick={() => {
-          setSelected(row);
-          setOpenDelete(true);
-        }} disabled={row.products.length > 0}>
-          <Icon icon='tabler:trash' color={row.products.length > 0 ? theme.palette.grey[400]: theme.palette.error.main}/>
+        <IconButton
+          onClick={() => {
+            setSelected(row);
+            setOpenDelete(true);
+          }}
+          disabled={row.count > 0}
+        >
+          <Icon icon='tabler:trash' color={row.count > 0 ? theme.palette.grey[400] : theme.palette.error.main} />
         </IconButton>
       </Tooltip>
     </>
@@ -59,21 +61,6 @@ const CategoriesList = () => {
     }
   }
 
-  const [syncLoading, setSyncLoading] = useState(false);
-  const handleSync = async () => {
-    setSyncLoading(true);
-    try {
-      await apiConnector.post('/woocomerce/sync-categories', {});
-      toast.success('Sincronización exitosa con WooCommerce');
-    } catch (error) {
-      toast.error('Error al sincronizar con WooCommerce');
-    } finally {
-      setSyncLoading(false);
-    }
-  };
-
-
-
   return <>
     <Box>
 
@@ -82,16 +69,6 @@ const CategoriesList = () => {
       <Grid item lg={12} xs={12}>
         <Card>
           <CardHeader title='Categorias' action={<>
-            <Button
-              variant="outlined"
-              color="primary"
-              startIcon={<Icon icon='tabler:refresh' />}
-              onClick={handleSync}
-              sx={{ mr: 2 }}
-              disabled={syncLoading}
-            >
-              {syncLoading ? 'Sincronizando...' : 'Sincronizar'}
-            </Button>
             <Button
               variant="contained"
               startIcon={<Icon icon='tabler:plus' />}

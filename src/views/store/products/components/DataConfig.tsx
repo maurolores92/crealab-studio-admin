@@ -1,14 +1,37 @@
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { actionsColumn, TitleAndSubtitle, dateColumn, price } from 'src/components/table/Columns'
-import { constants } from 'src/configs/constants';
 import * as yup from 'yup';
 import CustomChip from 'src/@core/components/mui/chip';
 
-export const ProductStatusColor = {
-  draft: 'warning',
-  published: 'success',
-  disabled: 'error',
-}
+type ProductStatusConfig = {
+  value: string;
+  color: 'success' | 'warning' | 'info' | 'secondary' | 'primary' | 'error' | 'default';
+  label: string;
+};
+
+export const PRODUCT_STATUSES: ProductStatusConfig[] = [
+  { value: 'publish', color: 'success', label: 'Publicado' },
+  { value: 'draft', color: 'warning', label: 'Borrador' },
+  { value: 'pending', color: 'info', label: 'Pendiente de revisión' },
+  { value: 'private', color: 'secondary', label: 'Privado' },
+  { value: 'future', color: 'primary', label: 'Programado' },
+  { value: 'trash', color: 'error', label: 'En papelera' },
+  { value: 'disabled', color: 'error', label: 'Deshabilitado' },
+];
+
+export type ProductStatus = typeof PRODUCT_STATUSES[number]['value'];
+
+export const ProductStatusColor = PRODUCT_STATUSES.reduce((acc, s) => {
+  acc[s.value as ProductStatus] = s.color;
+
+  return acc;
+}, {} as Record<ProductStatus, ProductStatusConfig['color']>);
+
+export const ProductStatusLabel = PRODUCT_STATUSES.reduce((acc, s) => {
+  acc[s.value as ProductStatus] = s.label;
+
+  return acc;
+}, {} as Record<ProductStatus, string>);
 
 export const columns = (actions: any): GridColDef[] => {
 
@@ -20,9 +43,9 @@ export const columns = (actions: any): GridColDef[] => {
       headerName: 'Producto',
       renderCell: (params: GridRenderCellParams) => TitleAndSubtitle(
         params.row.name,
-        `Categorías: ${params.row.categories.map((c: any) => c.category.name).join(', ')}`,
+        `Categorías: ${Array.isArray(params.row.categories) ? params.row.categories.join(', ') : ''}`,
         null,
-        `${constants.imageHost}${params.row.imageUrl}`
+        `${params.row.imageUrl}`
       )
     },
     {
@@ -58,17 +81,24 @@ export const columns = (actions: any): GridColDef[] => {
       headerName: 'Estado',
       align: 'center',
       headerAlign: 'center',
-      renderCell: (params: any) => <CustomChip
+      renderCell: (params: any) => {
+        const status = params.row.status as ProductStatus;
+
+        return (
+          <CustomChip
             skin="light"
-            color='warning'
-            label={params.row.status.name}
+            color={ProductStatusColor[status] || 'default'}
+            label={ProductStatusLabel[status] || status}
             sx={{mr: 2, mt: 1}}
-          />,
+          />
+        );
+      },
     },
     dateColumn('createdAt'),
     actionsColumn(actions)
   ]
 }
+
 
 export const productSchema = yup.object().shape({
   name: yup.string().required('El nombre es requerido'),
@@ -76,7 +106,7 @@ export const productSchema = yup.object().shape({
   categories: yup.array().required('Debe seleccionar al menos una categoría'),
   description: yup.string().nullable(),
   aditionalDescription: yup.string().nullable(),
-  statusSlug: yup.string().required('El estatus es requerido'),
+  status: yup.string().required('El estatus es requerido'),
   price: yup.number().required('El precio minorista es requerido'),
   priceSmall: yup.number().nullable(),
   priceBig: yup.number().nullable(),
@@ -90,7 +120,7 @@ export const defaultValues = {
   description: null,
   aditionalDescription: null,
   barcode: null,
-  statusSlug: 'published',
+  status: 'publish',
   categories: [],
   summary: null,
   price: 0,

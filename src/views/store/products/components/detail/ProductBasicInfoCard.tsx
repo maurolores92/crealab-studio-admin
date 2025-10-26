@@ -13,9 +13,9 @@ const ItemDescription = ({label, value}: any) => <Box sx={{display: 'flex', mb: 
 <Typography>{value}</Typography>
 </Box>
 
-
-
 const ProductBasicInfoCard = ({product, refresh}: any) => {
+
+  console.log('product', product);
   const [openDelete, setOpenDelete] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -40,7 +40,9 @@ const ProductBasicInfoCard = ({product, refresh}: any) => {
 
     const handleDeleteImage = async () => {
     try {
-      await apiConnector.remove(`/products/${product.id}/deleteMainImage`);
+      const imageId = product.images?.[0]?.id;
+      if (!imageId) throw new Error('No se encontró el id de la imagen principal');
+      await apiConnector.remove(`/products/${product.id}/gallery/${imageId}`);
       setOpenDelete(false);
       toast.success('Imagen eliminada correctamente');
       product.imageUrl = null;

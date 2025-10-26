@@ -51,6 +51,12 @@ const ProductDescriptionCard = ({product}: any) => {
   const [summaryValue, setSummaryValue] = useState("");
   const [descriptionValue, setDescriptionValue] = useState("");
 
+  // Handler para Editor (setValue)
+  const handleEditorChange = (name: string, value: string) => {
+    if (name === "summary") setSummaryValue(value);
+    if (name === "description") setDescriptionValue(value);
+  };
+
   const handleSaveSummary = () => {
     if (!summaryValue.trim()) {
 
@@ -73,14 +79,20 @@ const ProductDescriptionCard = ({product}: any) => {
       <CardContent>
         {product.summary && !showSummaryInput ? (
           <Box>
-            <Typography sx={{my: 1, fontWeight: 600}} variant="h5">Sumario</Typography>
+            <Box sx={{display: 'flex', alignItems: 'center', my: 1}}>
+              <Typography sx={{fontWeight: 600, mr: 2}} variant="h5">Sumario</Typography>
+              <Button variant="outlined" size="small" onClick={() => {
+                setShowSummaryInput(true);
+                setSummaryValue(product.summary || "");
+              }}>Editar</Button>
+            </Box>
             <Box dangerouslySetInnerHTML={{__html: product.summary}}></Box>
           </Box>
         ) : showSummaryInput ? (
           <Grid container spacing={2} sx={{mb: 2}}>
             <Grid item xs={12}>
               <Editor
-                setValue={setSummaryValue}
+                setValue={handleEditorChange}
                 defaultValue={product?.summary}
                 name='summary'
               />
@@ -101,7 +113,13 @@ const ProductDescriptionCard = ({product}: any) => {
 
         {product.description && !showDescriptionInput ? (
           <Box>
-            <Typography sx={{my: 5, fontWeight: 600}} variant="h5">Descripción del servicio</Typography>
+            <Box sx={{display: 'flex', alignItems: 'center', my: 5}}>
+              <Typography sx={{fontWeight: 600, mr: 2}} variant="h5">Descripción del servicio</Typography>
+              <Button variant="outlined" size="small" onClick={() => {
+                setShowDescriptionInput(true);
+                setDescriptionValue(product.description || "");
+              }}>Editar</Button>
+            </Box>
             <Box dangerouslySetInnerHTML={{__html: product.description}}></Box>
           </Box>
         ) : showDescriptionInput ? (
@@ -109,7 +127,7 @@ const ProductDescriptionCard = ({product}: any) => {
             <Grid item xs={12}>
               <Typography variant='h6' sx={{mb:2}}>Descripción</Typography>
               <Editor
-                setValue={setDescriptionValue}
+                setValue={handleEditorChange}
                 defaultValue={product?.description}
                 name='description'
               />

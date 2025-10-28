@@ -67,18 +67,17 @@ export const schema = yup.object().shape({
 });
 
 export const defaultValues = {
-  id: 0,
   name: '',
   lastName:'',
   documentType: 'DNI',
-  document:'',
-  email:'',
-  phone:'',
+  document:null,
+  email:null,
+  phone:null,
   address: {
     provinceId: null,
-    city: '',
-    address: '',
-    postalCode: '',
+    city: null,
+    address: null,
+    postalCode: null,
   }
 };
 

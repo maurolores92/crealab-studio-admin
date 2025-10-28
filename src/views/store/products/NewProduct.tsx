@@ -1,7 +1,6 @@
 import { Box, Button, CircularProgress, Grid, Typography, } from "@mui/material";
 import { useNewProductContent } from "./components/create/NewProductContext";
 import BasicDataCard from "./components/create/BasicDataCard";
-import FilesCard from "./components/create/FilesCard";
 import apiConnector from "src/services/api.service";
 import { useState } from "react";
 import SuccessModal from "src/components/dialogs/SuccessModal";
@@ -55,12 +54,14 @@ const NewProduct = () => {
         </Box>
       </Box>
       <Grid container spacing={2}>
-        <Grid item lg={7} xs={12}>
+        <Grid item lg={12} xs={12}>
           <BasicDataCard />
         </Grid>
-        <Grid item lg={5} xs={12}>
+
+        {/* <Grid item lg={5} xs={12}>
           <FilesCard />
-        </Grid>
+        </Grid> */}
+
       </Grid>
 
     </form>

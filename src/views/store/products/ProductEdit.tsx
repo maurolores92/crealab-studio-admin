@@ -1,6 +1,7 @@
 import { Box, Button, CircularProgress, Grid, Link, Typography, } from "@mui/material"
 
 import { useState } from "react"
+import { useRouter } from "next/router"
 import apiConnector from "src/services/api.service";
 import toast from "react-hot-toast";
 import BasicDataCard from "./components/create/BasicDataCard";
@@ -11,6 +12,7 @@ import LinkNext from 'next/link';
 const ProductEdit = () => {
   const {product, handleSubmit} = useNewProductContent();
   const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   const submit = async (data: any) => {
     console.log('[ProductEdit] submit called', data);
@@ -39,6 +41,7 @@ const ProductEdit = () => {
       };
       console.log('[ProductEdit] sending to backend', `/products/${product.id}`, payload);
       await apiConnector.put(`/products/${product.id}`, payload);
+      router.push('/productos');
       toast.success('Producto editado con éxito');
       setLoading(false);
     } catch (error) {

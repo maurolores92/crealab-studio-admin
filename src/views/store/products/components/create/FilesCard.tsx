@@ -24,14 +24,13 @@ const FilesCard = () => {
   <CardHeader title="Imagenes" />
   <CardContent>
     <Box sx={{mb: 3}}>
-      <Typography>Imagen del producto</Typography>
       <Typography variant="caption">Agrega una imagen principal</Typography>
       <Box sx={{ my: 5, alignItems: 'center'}}>
         {mainImage ? <MainImagePeview alt={'Image'} src={URL.createObjectURL(mainImage as any)} />: <></>}
         {
         mainImage ? <IconButton  color='error' sx={{p: [0, 2], ml: -5, backgroundColor: '#fff'}} onClick={() => setMainImage(null)}>
           <Icon icon='tabler:trash' fontSize={22}/>
-        </IconButton>: 
+        </IconButton>:
         <ButtonLoadFile onChange={setMainImage} >Cargar imagen principal</ButtonLoadFile>
         }
       </Box>
@@ -40,8 +39,8 @@ const FilesCard = () => {
       <Typography>Galería</Typography>
       <Typography variant="caption">Agrega una imagen principal</Typography>
       <AppReactDropzone sx={{mt: 3}}>
-        <FileUploaderMultiple 
-          files={files} 
+        <FileUploaderMultiple
+          files={files}
           setFiles={setFiles}
         />
       </AppReactDropzone>

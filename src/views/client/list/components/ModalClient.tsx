@@ -26,6 +26,10 @@ const ModalClient = ({ open, onClose, refresh, client, setSelected }: any) => {
 
   const onSubmit = async(data: any) => {
     try {
+      // Si todos los campos de address son null, no enviar address
+      if (data.address && Object.values(data.address).every(v => v === null || v === '')) {
+        delete data.address;
+      }
       let result;
       if(client) {
         result =  await apiConnector.put(`/client/${client.id}`, data);
@@ -117,9 +121,9 @@ const ModalClient = ({ open, onClose, refresh, client, setSelected }: any) => {
           />
         </Grid>
         <Grid item lg={4} xs={12}>
-          <SelectProvince 
-            setValue={setValue} 
-            errors={errors} 
+          <SelectProvince
+            setValue={setValue}
+            errors={errors}
             field={'address.provinceId'}
             id={client?.address?.provinceId}
           />

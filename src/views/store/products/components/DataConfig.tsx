@@ -43,7 +43,9 @@ export const columns = (actions: any): GridColDef[] => {
       headerName: 'Producto',
       renderCell: (params: GridRenderCellParams) => TitleAndSubtitle(
         params.row.name,
-        `Categorías: ${Array.isArray(params.row.categories) ? params.row.categories.join(', ') : ''}`,
+        `Categorías: ${Array.isArray(params.row.categories)
+          ? params.row.categories.map((c: any) => c.name).join(', ')
+          : ''}`,
         null,
         `${params.row.imageUrl}`
       )

@@ -77,7 +77,7 @@ const OrderItemsList = ({items, refresh}: any) => {
 
   const onSave = async(product: any) => {
     try {
-      await apiConnector.put(`/order/items/${product.id}`, product);
+      await apiConnector.put(`/orders/items/${product.id}`, product);
       refresh();
     } catch (error) {
       console.log(error);

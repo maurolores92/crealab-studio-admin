@@ -38,8 +38,8 @@ const OrdersList = () => {
       <IconButton onClick={() => {
         setSelected(row);
         setOpenDelete(true);
-      }} disabled={row.status.slug !== 'pending'}>
-        <Icon icon='tabler:trash' color={row.status.slug !== 'pending' ? theme.palette.grey[400]: theme.palette.error.main}/>
+      }}>
+        <Icon icon='tabler:trash' color={theme.palette.error.main}/>
       </IconButton>
     </Tooltip>
   </>
@@ -48,7 +48,7 @@ const OrdersList = () => {
 
   const onDelete = async() => {
     try {
-      await apiConnector.remove(`/order/${selected.id}`);
+      await apiConnector.remove(`/orders/${selected.id}`);
       setOpenDelete(false);
       toast.success('Se eliminó la orden de venta con éxito.')
       get();
@@ -85,11 +85,11 @@ const OrdersList = () => {
       openDelete && <ConfirmDeleteDialog
       open={openDelete}
       onClose={() => setOpenDelete(false)}
-      title={`Eliminar la orden de venta ${selected.orderNumber}`}
+      title={`Eliminar la orden de venta ${selected.id}`}
       titleAction="Eliminar orden de venta"
       action={onDelete}
       >
-        <Typography fontSize={14}>¿Está seguro que desea elimina la orden de venta #<strong>{selected.orderNumber}</strong>?</Typography>
+        <Typography fontSize={14}>¿Está seguro que desea elimina la orden de venta #<strong>{selected.id}</strong>?</Typography>
       </ConfirmDeleteDialog>
     }
   </>;

@@ -22,7 +22,7 @@ const FullTable = ({
   disableRowSelectionOnClick
   paginationMode='server'
   paginationModel={paginationModel}
-  pageSizeOptions={[7, 10, 25, 50]}
+  pageSizeOptions={[7, 10, 25, 50, 100]}
   onPaginationModelChange={setPagination}
   rowSelectionModel={rowSelected}
   onRowSelectionModelChange={(newRowSelectionModel) => {
